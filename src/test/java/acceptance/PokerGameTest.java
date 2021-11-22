@@ -5,7 +5,7 @@ import fr.zbar.kata.pokerkata.ext.PokerParser;
 import fr.zbar.kata.pokerkata.model.card.Card;
 import fr.zbar.kata.pokerkata.model.card.Rank;
 import fr.zbar.kata.pokerkata.model.card.Suit;
-import fr.zbar.kata.pokerkata.model.hand.Hand;
+import fr.zbar.kata.pokerkata.model.hand.StartingHand;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ public class PokerGameTest {
         String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
         Player black = new Player(
                 "Black",
-                new Hand(
+                new StartingHand(
                         new Card(Rank.TWO, Suit.HEARTS),
                         new Card(Rank.THREE, Suit.DIAMONDS),
                         new Card(Rank.FIVE, Suit.SPADES),
@@ -38,7 +38,7 @@ public class PokerGameTest {
         );
         Player white = new Player(
                 "White",
-                new Hand(
+                new StartingHand(
                         new Card(Rank.TWO, Suit.CLUBS),
                         new Card(Rank.THREE, Suit.HEARTS),
                         new Card(Rank.FOUR, Suit.SPADES),
