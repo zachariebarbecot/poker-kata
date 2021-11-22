@@ -10,6 +10,11 @@ public record HighCardHand(Card card) implements Hand {
         Objects.requireNonNull(card);
     }
 
+    @Override
+    public Hand determinateBestHand() {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
     public String cardRankValue() {
         return card.rankValue();
     }
