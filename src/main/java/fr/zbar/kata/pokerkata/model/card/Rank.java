@@ -24,4 +24,8 @@ public enum Rank {
     public String value() {
         return value;
     }
+
+    public boolean isStrongerThan(Rank rank) {
+        return ordinal() > rank.ordinal();
+    }
 }

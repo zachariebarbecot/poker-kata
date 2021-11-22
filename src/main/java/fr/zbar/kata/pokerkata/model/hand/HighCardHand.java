@@ -15,6 +15,17 @@ public record HighCardHand(Card card) implements Hand {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
+    @Override
+    public int weight() {
+        return 1;
+    }
+
+    @Override
+    public boolean isStrongestThan(Hand hand) {
+        return weight() > hand.weight() ||
+                (weight() == hand.weight() && card.isStrongerThan(((HighCardHand) hand).card));
+    }
+
     public String cardRankValue() {
         return card.rankValue();
     }

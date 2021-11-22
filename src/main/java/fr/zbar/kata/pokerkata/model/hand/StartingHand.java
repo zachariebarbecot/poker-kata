@@ -23,4 +23,14 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
                 .map(HighCardHand::new)
                 .orElseThrow();
     }
+
+    @Override
+    public int weight() {
+        return 0;
+    }
+
+    @Override
+    public boolean isStrongestThan(Hand hand) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
 }
