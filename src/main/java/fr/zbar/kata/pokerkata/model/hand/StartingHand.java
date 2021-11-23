@@ -1,9 +1,13 @@
 package fr.zbar.kata.pokerkata.model.hand;
 
 import fr.zbar.kata.pokerkata.model.card.Card;
+import fr.zbar.kata.pokerkata.model.hand.rule.RuleEnum;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card card5) implements Hand {
@@ -18,10 +22,37 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
 
     @Override
     public Hand determinateBestHand() {
+        return Arrays.stream(RuleEnum.values())
+                .map(RuleEnum::rule)
+                .filter(rule -> rule.test(this))
+                .map(rule -> rule.apply(this))
+                .reduce((f, s) -> s)
+                .orElseThrow(UnsupportedOperationException::new);
+    }
+
+    @Override
+    public Card highestCard() {
         return Stream.of(card1, card2, card3, card4, card5)
                 .max(Comparator.comparing(Card::rank))
-                .map(HighCardHand::new)
-                .orElseThrow();
+                .orElseThrow(UnsupportedOperationException::new);
+    }
+
+    @Override
+    public boolean hasPair() {
+        return Stream.of(card1, card2, card3, card4, card5)
+                .collect(Collectors.groupingBy(Card::rank, Collectors.counting()))
+                .values().stream()
+                .anyMatch(v -> v == 2);
+    }
+
+    @Override
+    public List<Card> highestPair() {
+        return Stream.of(card1, card2, card3, card4, card5)
+                .collect(Collectors.groupingBy(Card::rank))
+                .values().stream()
+                .filter(cardsList -> cardsList.size() == 2)
+                .reduce(this::highestPair)
+                .orElseThrow(UnsupportedOperationException::new);
     }
 
     @Override
@@ -29,8 +60,8 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
         return 0;
     }
 
-    @Override
-    public boolean isStrongestThan(Hand hand) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    private List<Card> highestPair(List<Card> firstCardsList, List<Card> secondCardsList) {
+        return firstCardsList.get(0).isStrongerThan(secondCardsList.get(0)) ?
+                firstCardsList : secondCardsList;
     }
 }

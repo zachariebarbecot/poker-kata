@@ -4,6 +4,7 @@ import fr.zbar.kata.pokerkata.model.card.Card;
 import fr.zbar.kata.pokerkata.model.card.Rank;
 import fr.zbar.kata.pokerkata.model.card.Suit;
 import fr.zbar.kata.pokerkata.model.hand.HighCardHand;
+import fr.zbar.kata.pokerkata.model.hand.PairHand;
 import fr.zbar.kata.pokerkata.model.hand.StartingHand;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,32 @@ public class PlayerTest {
                 player.name(),
                 new HighCardHand(
                         new Card(Rank.KING, Suit.DIAMONDS)
+                )
+        );
+
+        Player result = player.determineBestHand();
+
+        assertThat(result)
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void should_get_pair_of_five() {
+        Player player = new Player(
+                "White",
+                new StartingHand(
+                        new Card(Rank.FIVE, Suit.CLUBS),
+                        new Card(Rank.FIVE, Suit.HEARTS),
+                        new Card(Rank.FOUR, Suit.SPADES),
+                        new Card(Rank.EIGHT, Suit.CLUBS),
+                        new Card(Rank.ACE, Suit.HEARTS)
+                )
+        );
+        Player expected = new Player(
+                player.name(),
+                new PairHand(
+                        new Card(Rank.FIVE, Suit.CLUBS),
+                        new Card(Rank.FIVE, Suit.HEARTS)
                 )
         );
 

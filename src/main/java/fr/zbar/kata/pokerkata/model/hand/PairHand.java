@@ -15,18 +15,13 @@ public record PairHand(Card card1, Card card2) implements Hand {
     }
 
     @Override
-    public Hand determinateBestHand() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public boolean isStrongestThan(Hand hand) {
+        return false;
     }
 
     @Override
     public int weight() {
         return 2;
-    }
-
-    @Override
-    public boolean isStrongestThan(Hand hand) {
-        return false;
     }
 
     public String cardRankValue() {
