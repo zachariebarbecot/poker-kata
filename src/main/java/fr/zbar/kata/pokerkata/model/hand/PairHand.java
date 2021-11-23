@@ -16,7 +16,8 @@ public record PairHand(Card card1, Card card2) implements Hand {
 
     @Override
     public boolean isStrongestThan(Hand hand) {
-        return false;
+        return weight() > hand.weight() ||
+                (weight() == hand.weight() && card1.isStrongerThan(((PairHand) hand).card1));
     }
 
     @Override
