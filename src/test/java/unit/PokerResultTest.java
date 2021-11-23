@@ -4,6 +4,7 @@ import fr.zbar.kata.pokerkata.model.card.Card;
 import fr.zbar.kata.pokerkata.model.card.Rank;
 import fr.zbar.kata.pokerkata.model.card.Suit;
 import fr.zbar.kata.pokerkata.model.hand.HighCardHand;
+import fr.zbar.kata.pokerkata.model.hand.PairHand;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import fr.zbar.kata.pokerkata.model.result.PokerResult;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,23 @@ class PokerResultTest {
     void should_display_tie_if_no_winner() {
         PokerResult pokerResult = new PokerResult(null);
         String expected = "Tie.";
+
+        String result = pokerResult.display();
+
+        assertThat(result)
+                .isEqualTo(expected);
+    }
+
+    @Test
+    void should_display_winner_with_pair() {
+        Player winnerPlayerWithHighCard = new Player(
+                "Black",
+                new PairHand(
+                        new Card(Rank.KING, Suit.HEARTS),
+                        new Card(Rank.KING, Suit.DIAMONDS)
+                ));
+        PokerResult pokerResult = new PokerResult(winnerPlayerWithHighCard);
+        String expected = "Black wins. - with pair of: King";
 
         String result = pokerResult.display();
 
