@@ -27,5 +27,9 @@ public sealed interface Hand
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
+    default Hand strongestHand(Hand strongest) {
+        return strongest;
+    }
+
     int weight();
 }

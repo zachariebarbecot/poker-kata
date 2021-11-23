@@ -58,7 +58,7 @@ public class PokerGameTest {
 
     @Test
     void should_have_winner_black_with_pair_of_king() {
-        String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
+        String input = "Black: 2H 2D KS 9C KD  White: 5C 5H 4S 8C AH";
         Player black = new Player(
                 "Black",
                 new StartingHand(

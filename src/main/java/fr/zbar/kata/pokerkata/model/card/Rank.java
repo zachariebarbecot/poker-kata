@@ -21,11 +21,11 @@ public enum Rank {
         this.value = value;
     }
 
-    public String value() {
-        return value;
-    }
-
     public boolean isStrongerThan(Rank rank) {
         return ordinal() > rank.ordinal();
+    }
+
+    public String value() {
+        return value;
     }
 }

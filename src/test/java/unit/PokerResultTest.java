@@ -42,13 +42,13 @@ class PokerResultTest {
 
     @Test
     void should_display_winner_with_pair() {
-        Player winnerPlayerWithHighCard = new Player(
+        Player winnerPlayerWithPair = new Player(
                 "Black",
                 new PairHand(
                         new Card(Rank.KING, Suit.HEARTS),
                         new Card(Rank.KING, Suit.DIAMONDS)
                 ));
-        PokerResult pokerResult = new PokerResult(winnerPlayerWithHighCard);
+        PokerResult pokerResult = new PokerResult(winnerPlayerWithPair);
         String expected = "Black wins. - with pair of: King";
 
         String result = pokerResult.display();

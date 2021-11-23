@@ -26,7 +26,7 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
                 .map(RuleEnum::rule)
                 .filter(rule -> rule.test(this))
                 .map(rule -> rule.apply(this))
-                .reduce((f, s) -> s)
+                .reduce(Hand::strongestHand)
                 .orElseThrow(UnsupportedOperationException::new);
     }
 
