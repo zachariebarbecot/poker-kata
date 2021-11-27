@@ -6,6 +6,7 @@ import fr.zbar.kata.pokerkata.model.card.Card;
 import fr.zbar.kata.pokerkata.model.card.Rank;
 import fr.zbar.kata.pokerkata.model.card.Suit;
 import fr.zbar.kata.pokerkata.model.hand.StartingHand;
+import fr.zbar.kata.pokerkata.model.player.Name;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +28,7 @@ public class PokerGameTest {
     void should_have_winner_white_with_high_card() {
         String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
         Player black = new Player(
-                "Black",
+                new Name("Black"),
                 new StartingHand(
                         new Card(Rank.TWO, Suit.HEARTS),
                         new Card(Rank.THREE, Suit.DIAMONDS),
@@ -37,7 +38,7 @@ public class PokerGameTest {
                 )
         );
         Player white = new Player(
-                "White",
+                new Name("White"),
                 new StartingHand(
                         new Card(Rank.TWO, Suit.CLUBS),
                         new Card(Rank.THREE, Suit.HEARTS),
@@ -60,7 +61,7 @@ public class PokerGameTest {
     void should_have_winner_black_with_pair_of_king() {
         String input = "Black: 2H 2D KS 9C KD  White: 5C 5H 4S 8C AH";
         Player black = new Player(
-                "Black",
+                new Name("Black"),
                 new StartingHand(
                         new Card(Rank.TWO, Suit.HEARTS),
                         new Card(Rank.TWO, Suit.DIAMONDS),
@@ -70,7 +71,7 @@ public class PokerGameTest {
                 )
         );
         Player white = new Player(
-                "White",
+                new Name("White"),
                 new StartingHand(
                         new Card(Rank.FIVE, Suit.CLUBS),
                         new Card(Rank.FIVE, Suit.HEARTS),

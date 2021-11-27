@@ -6,6 +6,7 @@ import fr.zbar.kata.pokerkata.model.card.Suit;
 import fr.zbar.kata.pokerkata.model.hand.HighCardHand;
 import fr.zbar.kata.pokerkata.model.hand.PairHand;
 import fr.zbar.kata.pokerkata.model.hand.StartingHand;
+import fr.zbar.kata.pokerkata.model.player.Name;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class PlayerTest {
         @Test
         void should_get_high_card() {
             Player player = new Player(
-                    "Black",
+                    new Name("Black"),
                     new StartingHand(
                             new Card(Rank.TWO, Suit.HEARTS),
                             new Card(Rank.THREE, Suit.DIAMONDS),
@@ -35,7 +36,7 @@ public class PlayerTest {
                     )
             );
 
-            Player result = player.determineBestHand();
+            Player result = player.determineStrongestHand();
 
             assertThat(result)
                     .isEqualTo(expected);
@@ -47,7 +48,7 @@ public class PlayerTest {
         @Test
         void should_get_pair() {
             Player player = new Player(
-                    "White",
+                    new Name("White"),
                     new StartingHand(
                             new Card(Rank.FIVE, Suit.CLUBS),
                             new Card(Rank.FIVE, Suit.HEARTS),
@@ -64,7 +65,7 @@ public class PlayerTest {
                     )
             );
 
-            Player result = player.determineBestHand();
+            Player result = player.determineStrongestHand();
 
             assertThat(result)
                     .isEqualTo(expected);
@@ -73,7 +74,7 @@ public class PlayerTest {
         @Test
         void should_get_highest_pair() {
             Player player = new Player(
-                    "Black",
+                    new Name("Black"),
                     new StartingHand(
                             new Card(Rank.TWO, Suit.HEARTS),
                             new Card(Rank.TWO, Suit.DIAMONDS),
@@ -90,7 +91,7 @@ public class PlayerTest {
                     )
             );
 
-            Player result = player.determineBestHand();
+            Player result = player.determineStrongestHand();
 
             assertThat(result)
                     .isEqualTo(expected);

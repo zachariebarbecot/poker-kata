@@ -7,7 +7,7 @@ import java.util.List;
 public sealed interface Hand
         permits HighCardHand, PairHand, StartingHand {
 
-    default Hand determinateBestHand() {
+    default Hand determineStrongestHand() {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 

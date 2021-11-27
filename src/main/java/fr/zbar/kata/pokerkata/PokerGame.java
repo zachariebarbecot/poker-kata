@@ -17,14 +17,10 @@ public class PokerGame {
     public String result(String input) {
         List<Player> players = parser.parse(input);
         return players.stream()
-                .map(Player::determineBestHand)
-                .reduce(this::determineWinner)
+                .map(Player::determineStrongestHand)
+                .reduce(Player::determineWinner)
                 .map(PokerResult::new)
                 .map(PokerResult::display)
                 .orElseThrow();
-    }
-
-    private Player determineWinner(Player p1, Player p2) {
-        return p1.isStrongestThan(p2) ? p1 : p2;
     }
 }

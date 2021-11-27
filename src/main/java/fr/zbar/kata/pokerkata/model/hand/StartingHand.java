@@ -21,20 +21,20 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
     }
 
     @Override
-    public Hand determinateBestHand() {
+    public Hand determineStrongestHand() {
         return Arrays.stream(RuleEnum.values())
                 .map(RuleEnum::rule)
                 .filter(rule -> rule.test(this))
                 .map(rule -> rule.apply(this))
                 .reduce(Hand::strongestHand)
-                .orElseThrow(UnsupportedOperationException::new);
+                .orElseThrow();
     }
 
     @Override
     public Card highestCard() {
         return Stream.of(card1, card2, card3, card4, card5)
                 .max(Comparator.comparing(Card::rank))
-                .orElseThrow(UnsupportedOperationException::new);
+                .orElseThrow();
     }
 
     @Override
@@ -52,7 +52,7 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
                 .values().stream()
                 .filter(cardsList -> cardsList.size() == 2)
                 .reduce(this::highestPair)
-                .orElseThrow(UnsupportedOperationException::new);
+                .orElseThrow();
     }
 
     @Override

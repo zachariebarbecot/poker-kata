@@ -5,6 +5,7 @@ import fr.zbar.kata.pokerkata.model.card.Rank;
 import fr.zbar.kata.pokerkata.model.card.Suit;
 import fr.zbar.kata.pokerkata.model.hand.HighCardHand;
 import fr.zbar.kata.pokerkata.model.hand.PairHand;
+import fr.zbar.kata.pokerkata.model.player.Name;
 import fr.zbar.kata.pokerkata.model.player.Player;
 import fr.zbar.kata.pokerkata.model.result.PokerResult;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ class PokerResultTest {
     @Test
     void should_display_winner_with_high_card() {
         Player winnerPlayerWithHighCard = new Player(
-                "White",
+                new Name("White"),
                 new HighCardHand(
                         new Card(Rank.ACE, Suit.HEARTS)
                 ));
@@ -43,7 +44,7 @@ class PokerResultTest {
     @Test
     void should_display_winner_with_pair() {
         Player winnerPlayerWithPair = new Player(
-                "Black",
+                new Name("Black"),
                 new PairHand(
                         new Card(Rank.KING, Suit.HEARTS),
                         new Card(Rank.KING, Suit.DIAMONDS)

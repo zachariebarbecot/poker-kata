@@ -14,16 +14,16 @@ public record PokerResult(Player winner) {
 
     public String display() {
         return Optional.ofNullable(winner)
-                .map(this::formatResult)
+                .map(this::formatResultByWinnerHand)
                 .orElse(TIE_TEMPLATE);
     }
 
-    private String formatResult(Player player) {
+    private String formatResultByWinnerHand(Player player) {
         if (player.hand() instanceof HighCardHand hand) {
-            return String.format(HIGH_HAND_WINNER_TEMPLATE, player.name(), hand.cardRankValue());
+            return String.format(HIGH_HAND_WINNER_TEMPLATE, player.stringifyName(), hand.cardRankValue());
         }
         if (player.hand() instanceof PairHand hand) {
-            return String.format(PAIR_HAND_WINNER_TEMPLATE, player.name(), hand.cardRankValue());
+            return String.format(PAIR_HAND_WINNER_TEMPLATE, player.stringifyName(), hand.cardRankValue());
         }
         throw new UnsupportedOperationException("Not implemented yet");
     }
