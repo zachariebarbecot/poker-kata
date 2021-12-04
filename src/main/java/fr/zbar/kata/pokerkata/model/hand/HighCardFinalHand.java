@@ -4,16 +4,16 @@ import fr.zbar.kata.pokerkata.model.card.Card;
 
 import java.util.Objects;
 
-public record HighCardHand(Card card) implements Hand {
+public record HighCardFinalHand(Card card) implements FinalHand {
 
-    public HighCardHand {
+    public HighCardFinalHand {
         Objects.requireNonNull(card);
     }
 
     @Override
-    public boolean isStrongestThan(Hand hand) {
-        return weight() > hand.weight() ||
-                (weight() == hand.weight() && card.isStrongerThan(((HighCardHand) hand).card));
+    public boolean isStrongerThan(FinalHand finalHand) {
+        return weight() > finalHand.weight() ||
+                (weight() == finalHand.weight() && card.isStrongerThan(((HighCardFinalHand) finalHand).card));
     }
 
     @Override

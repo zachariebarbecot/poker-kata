@@ -1,17 +1,18 @@
 package fr.zbar.kata.pokerkata.model.hand.rule;
 
-import fr.zbar.kata.pokerkata.model.hand.Hand;
-import fr.zbar.kata.pokerkata.model.hand.HighCardHand;
+import fr.zbar.kata.pokerkata.model.hand.FinalHand;
+import fr.zbar.kata.pokerkata.model.hand.HighCardFinalHand;
+import fr.zbar.kata.pokerkata.model.hand.StartingHand;
 
 public class HighCardRule implements Rule {
 
     @Override
-    public Hand apply(Hand hand) {
-        return new HighCardHand(hand.highestCard());
+    public FinalHand apply(StartingHand hand) {
+        return new HighCardFinalHand(hand.highestCard());
     }
 
     @Override
-    public boolean test(Hand hand) {
+    public boolean test(StartingHand hand) {
         return true;
     }
 }

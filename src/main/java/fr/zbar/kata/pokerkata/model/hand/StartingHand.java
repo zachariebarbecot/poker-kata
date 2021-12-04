@@ -7,10 +7,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card card5) implements Hand {
+public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card card5) {
 
     public StartingHand {
         Objects.requireNonNull(card1);
@@ -20,48 +22,43 @@ public record StartingHand(Card card1, Card card2, Card card3, Card card4, Card 
         Objects.requireNonNull(card5);
     }
 
-    @Override
-    public Hand determineStrongestHand() {
+    public FinalHand determineStrongestHand() {
         return Arrays.stream(RuleEnum.values())
                 .map(RuleEnum::rule)
                 .filter(rule -> rule.test(this))
                 .map(rule -> rule.apply(this))
-                .reduce(Hand::strongestHand)
+                .max(Comparator.comparing(FinalHand::weight))
                 .orElseThrow();
     }
 
-    @Override
     public Card highestCard() {
         return Stream.of(card1, card2, card3, card4, card5)
                 .max(Comparator.comparing(Card::rank))
                 .orElseThrow();
     }
 
-    @Override
     public boolean hasPair() {
         return Stream.of(card1, card2, card3, card4, card5)
                 .collect(Collectors.groupingBy(Card::rank, Collectors.counting()))
                 .values().stream()
-                .anyMatch(v -> v == 2);
+                .anyMatch(isPair());
     }
 
-    @Override
     public List<Card> highestPair() {
         return Stream.of(card1, card2, card3, card4, card5)
                 .collect(Collectors.groupingBy(Card::rank))
                 .values().stream()
-                .filter(cardsList -> cardsList.size() == 2)
-                .reduce(this::highestPair)
+                .filter((cardsList) -> isPair().test((long) cardsList.size()))
+                .reduce(determineHighestPair())
                 .orElseThrow();
     }
 
-    @Override
-    public int weight() {
-        return 0;
+    private Predicate<Long> isPair() {
+        return size -> size == 2;
     }
 
-    private List<Card> highestPair(List<Card> firstCardsList, List<Card> secondCardsList) {
-        return firstCardsList.get(0).isStrongerThan(secondCardsList.get(0)) ?
+    private BinaryOperator<List<Card>> determineHighestPair() {
+        return (firstCardsList, secondCardsList) -> firstCardsList.get(0).isStrongerThan(secondCardsList.get(0)) ?
                 firstCardsList : secondCardsList;
     }
 }

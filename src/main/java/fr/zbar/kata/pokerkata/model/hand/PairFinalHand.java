@@ -4,9 +4,9 @@ import fr.zbar.kata.pokerkata.model.card.Card;
 
 import java.util.Objects;
 
-public record PairHand(Card card1, Card card2) implements Hand {
+public record PairFinalHand(Card card1, Card card2) implements FinalHand {
 
-    public PairHand {
+    public PairFinalHand {
         Objects.requireNonNull(card1);
         Objects.requireNonNull(card2);
         if (!card1.isSameRankOf(card2)) {
@@ -15,9 +15,9 @@ public record PairHand(Card card1, Card card2) implements Hand {
     }
 
     @Override
-    public boolean isStrongestThan(Hand hand) {
-        return weight() > hand.weight() ||
-                (weight() == hand.weight() && card1.isStrongerThan(((PairHand) hand).card1));
+    public boolean isStrongerThan(FinalHand finalHand) {
+        return weight() > finalHand.weight() ||
+                (weight() == finalHand.weight() && card1.isStrongerThan(((PairFinalHand) finalHand).card1));
     }
 
     @Override

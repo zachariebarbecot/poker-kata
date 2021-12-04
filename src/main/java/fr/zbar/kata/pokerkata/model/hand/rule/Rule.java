@@ -1,9 +1,10 @@
 package fr.zbar.kata.pokerkata.model.hand.rule;
 
-import fr.zbar.kata.pokerkata.model.hand.Hand;
+import fr.zbar.kata.pokerkata.model.hand.FinalHand;
+import fr.zbar.kata.pokerkata.model.hand.StartingHand;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
-public interface Rule extends Predicate<Hand>, UnaryOperator<Hand> {
+public interface Rule extends Predicate<StartingHand>, Function<StartingHand, FinalHand> {
 }
